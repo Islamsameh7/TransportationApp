@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         Data data = new Data();
-        DriverIRegister dRegister = new DriverIRegister();
+        DriverRegister dRegister = new DriverRegister();
         ClientRegister cRegister = new ClientRegister();
         DriverLogin dLogin = new DriverLogin();
         ClientLogin cLogin = new ClientLogin();

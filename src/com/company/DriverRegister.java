@@ -1,6 +1,6 @@
 package com.company;
 
-public class DriverIRegister implements IRegister {
+public class DriverRegister implements IRegister {
 
     @Override
     public void register(Data data, User user) {
