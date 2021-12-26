@@ -1,6 +1,6 @@
 package com.company;
 
-public class ClientLogin implements ILogin {
+public class ClientAccount implements IAccount {
 
     @Override
     public boolean Login(Data data, String username, String pass) {
@@ -8,11 +8,14 @@ public class ClientLogin implements ILogin {
             if (username.equals(data.getClients().get(i).getUserName()))
                 if (pass.equals(data.getClients().get(i).getPassword()))
                     return true;
-                else
-                    return false;
-            else
-                return false;
         }
         return false;
+    }
+
+    @Override
+    public void register(Data data, User user) {
+        Client client = (Client) user;
+        data.getClients().add(client);
+
     }
 }

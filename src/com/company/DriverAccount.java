@@ -1,6 +1,6 @@
 package com.company;
 
-public class DriverLogin implements ILogin {
+public class DriverAccount implements IAccount {
 
     @Override
     public boolean Login(Data data, String username, String pass) {
@@ -8,11 +8,13 @@ public class DriverLogin implements ILogin {
             if (username.equals(data.getDrivers().get(i).getUserName()))
                 if (pass.equals(data.getDrivers().get(i).getPassword()))
                     return true;
-                else
-                    return false;
-            else
-                return false;
         }
         return false;
+    }
+
+    @Override
+    public void register(Data data, User user) {
+        Driver driver = (Driver) user;
+        data.getRequestedDrivers().add(driver);
     }
 }

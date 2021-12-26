@@ -1,6 +1,6 @@
 package com.company;
 
-public class Client extends User implements ISubjectClient, IObserverClient {
+public class Client extends User  {
 
     private String source;
     private String destination;
@@ -10,7 +10,7 @@ public class Client extends User implements ISubjectClient, IObserverClient {
         super(userName, mobileNum, email, password);
     }
 
-    public void requestRide(Data data, String source, String destination){
+   /* public void requestRide(Data data, String source, String destination){
         Ride ride = new Ride(source, destination, this);
         data.getRides().add(ride);
         notify(data, source, destination);
@@ -25,6 +25,6 @@ public class Client extends User implements ISubjectClient, IObserverClient {
                 }
             }
         }
-    }
+    }*/
 
 }

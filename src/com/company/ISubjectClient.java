@@ -2,6 +2,6 @@ package com.company;
 
 public interface ISubjectClient {
 
-    public void notify(Data data, String source, String message);
+    public void notify(String source, String message);
 
 }

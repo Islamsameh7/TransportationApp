@@ -6,16 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
         Data data = new Data();
-        DriverRegister dRegister = new DriverRegister();
-        ClientRegister cRegister = new ClientRegister();
-        DriverLogin dLogin = new DriverLogin();
-        ClientLogin cLogin = new ClientLogin();
+        DriverAccount dLogin = new DriverAccount();
+        ClientAccount cLogin = new ClientAccount();
         Driver d1 = null;
         Client c1 = null;
         Admin admin = new Admin();
         Suspend suspend = new Suspend();
         Ride ride = null;
         Rating rating = new Rating();
+        ClientControl clientControl = new ClientControl();
 
         String userName;
         String email = null;
@@ -77,7 +76,7 @@ public class Main {
                             id = input.nextInt();
                             //Driver d1 = new Driver(userName, mobileNum, email, password, license, id);
                             d1 = new Driver(userName, mobileNum, email, password, license, id);
-                            dRegister.register(data, d1);
+                            dLogin.register(data, d1);
                             break;
 
                         case 2: //Client register
@@ -104,7 +103,7 @@ public class Main {
                             mobileNum = input.next();
                             //Client c1 = new Client(userName, mobileNum, email, password);
                             c1 = new Client(userName, mobileNum, email, password);
-                            cRegister.register(data, c1);
+                            cLogin.register(data, c1);
                             break;
 
                         case 3:
@@ -207,6 +206,7 @@ public class Main {
                             while (true){
                                 if (cLogin.Login(data, userName, password)) {
                                     int cSubChoice;
+
                                     System.out.println("Welcome, " + c1.getUserName().toUpperCase());
                                     System.out.println("--------------------------");
                                     System.out.println("1- Request a ride. ");
@@ -221,7 +221,7 @@ public class Main {
                                             source = input.next();
                                             System.out.println("Please enter your destination: ");
                                             destination = input.next();
-                                            c1.requestRide(data,source,destination);
+                                            clientControl.requestRide(source,destination);
                                             //c1.notify(data, source, destination);
                                             break;
 
