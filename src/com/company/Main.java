@@ -275,48 +275,47 @@ public class Main {
                     System.out.println("Please enter your password");
                     password = input.next();
                     if (userName.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
-                        int adminChoice;
-                        System.out.println("Welcome, admin.");
-                        System.out.println("1- List drivers requests.");
-                        System.out.println("2- Suspend a user.");
-                        System.out.println("3- Back to main menu");
-                        adminChoice = input.nextInt();
-                        switch (adminChoice) {
-                            case 1:
-                                admin.listDriversRequests(data);
-                                System.out.println("Choose the driver number you want to verify");
-                                int verifyChoice = input.nextInt();
-                                admin.verify(data, data.getRequestedDrivers().get(verifyChoice - 1));
-                                continue mainMenu;
+                        while (true) {
+                            int adminChoice;
+                            System.out.println("Welcome, admin.");
+                            System.out.println("1- List drivers requests.");
+                            System.out.println("2- Suspend a user.");
+                            System.out.println("3- Back to main menu");
+                            adminChoice = input.nextInt();
+                            switch (adminChoice) {
+                                case 1:
+                                    admin.listDriversRequests(data);
+                                    break;
 
-                            case 2:
-                                System.out.println("1- Suspend a client.");
-                                System.out.println("2- Suspend a driver.");
-                                System.out.println("3- Back.");
-                                int suspendChoice = input.nextInt();
-                                if (suspendChoice == 1) {
-                                    System.out.println("All clients: ");
-                                    data.printClients();
-                                    System.out.println("Choose the client number you want to suspend");
-                                    int suspendClient = input.nextInt();
-                                    suspend.clientSuspend(data, data.getClients().get(suspendClient - 1));
-                                } else if (suspendChoice == 2) {
-                                    System.out.println("All drivers: ");
-                                    data.printDrivers();
-                                    System.out.println("Choose the driver number you want to suspend");
-                                    int suspendDriver = input.nextInt();
-                                    suspend.driverSuspend(data, data.getDrivers().get(suspendDriver - 1));
-                                } else if (suspendChoice == 3) {
+                                case 2:
+                                    System.out.println("1- Suspend a client.");
+                                    System.out.println("2- Suspend a driver.");
+                                    System.out.println("3- Back.");
+                                    int suspendChoice = input.nextInt();
+                                    if (suspendChoice == 1) {
+                                        System.out.println("All clients: ");
+                                        data.printClients();
+                                        System.out.println("Choose the client number you want to suspend");
+                                        int suspendClient = input.nextInt();
+                                        suspend.clientSuspend(data, data.getClients().get(suspendClient - 1));
+                                    } else if (suspendChoice == 2) {
+                                        System.out.println("All drivers: ");
+                                        data.printDrivers();
+                                        System.out.println("Choose the driver number you want to suspend");
+                                        int suspendDriver = input.nextInt();
+                                        suspend.driverSuspend(data, data.getDrivers().get(suspendDriver - 1));
+                                    } else if (suspendChoice == 3) {
+                                        break ;
+                                    }
+                                    break;
+
+                                case 3:
                                     continue mainMenu;
-                                }
-                                continue mainMenu;
 
-                            case 3:
-                                continue mainMenu;
-
-                            default:
-                                System.out.println("Wrong choice, Choose again");
-                                break;
+                                default:
+                                    System.out.println("Wrong choice, Choose again");
+                                    break;
+                            }
                         }
                     }
                     else{
