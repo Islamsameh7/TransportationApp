@@ -3,13 +3,13 @@ package com.company;
 public class DriverAccount implements IAccount {
 
     @Override
-    public boolean Login(Data data, String username, String pass) {
+    public User Login(Data data, String username, String pass) {
         for (int i=0 ; i<data.getDrivers().size() ; i++){
             if (username.equals(data.getDrivers().get(i).getUserName()))
                 if (pass.equals(data.getDrivers().get(i).getPassword()))
-                    return true;
+                    return data.getDrivers().get(i);
         }
-        return false;
+        return null;
     }
 
     @Override

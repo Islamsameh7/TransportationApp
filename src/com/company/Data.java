@@ -8,8 +8,7 @@ public class Data {
     private ArrayList<Driver> drivers = new ArrayList<>();
     private ArrayList<Ride> rides = new ArrayList<>();
     private ArrayList<Driver> requestedDrivers = new ArrayList<>();
-    private ArrayList<String> favAreas = new ArrayList<>();
-    private ArrayList<String> driverNotifications = new ArrayList<>();
+
     private ArrayList<Integer> driverOffer = new ArrayList<>();
 
     public ArrayList<Client> getClients() {
@@ -24,9 +23,7 @@ public class Data {
 
     public ArrayList<Driver> getRequestedDrivers() { return requestedDrivers; }
 
-    public ArrayList<String> getFavAreas() { return favAreas; }
 
-    public ArrayList<String> getDriverNotifications() { return driverNotifications; }
 
     public ArrayList<Integer> getDriverOffer() { return driverOffer; }
 

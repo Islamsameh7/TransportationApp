@@ -8,6 +8,7 @@ public class Main {
         Data data = new Data();
         DriverAccount dLogin = new DriverAccount();
         ClientAccount cLogin = new ClientAccount();
+        DriverControl dc = new DriverControl();
         Driver d1 = null;
         Client c1 = null;
         Admin admin = new Admin();
@@ -129,11 +130,11 @@ public class Main {
                             System.out.println("Please enter your password");
                             password = input.next();
                             while (true) {
-                                if (dLogin.Login(data, userName, password)) {
-
+                                if (dLogin.Login(data, userName, password)!= null) {
+                                    dc = new DriverControl((Driver) dLogin.Login(data, userName, password));
                                     int dSubChoice;
-                                    System.out.println("Welcome, " + d1.getUserName().toUpperCase());
-                                    System.out.println("Your rating: " + d1.getAvgRating());
+                                    System.out.println("Welcome, " + dLogin.Login(data, userName, password).getUserName().toUpperCase());
+                                    System.out.println("Your rating: " + ((Driver) dLogin.Login(data, userName, password)).getAvgRating());
                                     System.out.println("--------------------------");
                                     System.out.println("1- Notifications.");
                                     System.out.println("2- Add an area to your favourite areas. ");
@@ -145,25 +146,25 @@ public class Main {
 
                                     switch (dSubChoice) {
                                         case 1:
-                                            d1.listNotifications(data);
+                                            dc.listNotifications();
                                             break;
 
                                         case 2:
                                             System.out.println("Enter the area name: ");
                                             String area = input.next();
-                                            d1.addArea(data, area);
+                                            dc.addArea(area);
                                             break;
 
                                         case 3:
-                                            d1.listAreas(data);
+                                            dc.listAreas();
                                             break;
 
                                         case 4:
-                                            d1.listUserRating();
+                                            dc.listUserRating();
                                             break;
 
                                         case 5:
-                                            d1.listRides(data);
+                                            dc.listRides();
                                             System.out.println("Do you want to accept any of them?");
                                             System.out.println("1- Yes");
                                             System.out.println("2- No");
@@ -175,7 +176,7 @@ public class Main {
                                                     System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
                                                     System.out.println("Enter your offer: ");
                                                     int offer = input.nextInt();
-                                                    d1.acceptRide(data, data.getRides().get(rideChoice1-1), offer);
+                                                    dc.acceptRide(data.getRides().get(rideChoice1-1), offer);
                                                     break;
 
                                                 case 2:
@@ -204,10 +205,10 @@ public class Main {
                             System.out.println("Please enter your password");
                             password = input.next();
                             while (true){
-                                if (cLogin.Login(data, userName, password)) {
+                                if (cLogin.Login(data, userName, password)!= null) {
+                                    clientControl = new ClientControl((Client) cLogin.Login(data, userName, password));
                                     int cSubChoice;
-
-                                    System.out.println("Welcome, " + c1.getUserName().toUpperCase());
+                                    System.out.println("Welcome, " + cLogin.Login(data, userName, password).getUserName().toUpperCase());
                                     System.out.println("--------------------------");
                                     System.out.println("1- Request a ride. ");
                                     System.out.println("2- Offers. ");
