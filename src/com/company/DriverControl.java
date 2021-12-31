@@ -1,5 +1,8 @@
 package com.company;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static com.company.Main.input;
 import static com.company.Main.data;
 
@@ -101,6 +104,12 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
                     " | Ride details: Source: " + ride.getSource() +
                     " Destination: " + ride.getDestination());
         }
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
+        String formattedDate = myDateObj.format(myFormatObj);
+
+        data.getEvents().add("New offer " + " | Driver: " + this.getDriver().getUserName() + " | Date & Time: " + formattedDate + " | Offer: " + offer);
     }
 
     @Override

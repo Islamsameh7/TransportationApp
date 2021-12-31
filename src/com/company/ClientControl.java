@@ -1,5 +1,9 @@
 package com.company;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import static com.company.Main.data;
 import static com.company.Main.input;
 
@@ -43,10 +47,10 @@ public class ClientControl implements ISubjectClient, IObserverClient {
 
     @Override
     public void notify(String source , String destination) {
-        for (Driver d: data.getDrivers()) {
-            for (String ride: d.getFavAreas()){
+        for (Driver driver: data.getDrivers()) {
+            for (String ride: driver.getFavAreas()){
                 if (ride.equals(source)){
-                    d.driverControl.update(source, destination);
+                    driver.driverControl.update(source, destination);
                 }
             }
         }
@@ -67,6 +71,12 @@ public class ClientControl implements ISubjectClient, IObserverClient {
             case 2:
                 break;
         }
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
+        String formattedDate = myDateObj.format(myFormatObj);
+
+        data.getEvents().add("Offer Accepted " + " | Client: " + this.getClient().getUserName() + " | Date & Time: " + formattedDate);
     }
 
     public void listAllOffers(){

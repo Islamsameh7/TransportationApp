@@ -205,16 +205,19 @@ public class Main {
                             int adminChoice;
                             System.out.println("Welcome, admin.");
                             System.out.println("1- List drivers requests.");
-                            System.out.println("2- Suspend a user.");
-                            System.out.println("3- Add area to the discount areas. ");
-                            System.out.println("4- Back to main menu");
+                            System.out.println("2- List events.");
+                            System.out.println("3- Suspend a user.");
+                            System.out.println("4- Add area to the discount areas. ");
+                            System.out.println("5- Back to main menu");
                             adminChoice = input.nextInt();
                             switch (adminChoice) {
                                 case 1:
                                     admin.listDriversRequests();
                                     break;
-
                                 case 2:
+                                    admin.listEvents();
+                                    break;
+                                case 3:
                                     System.out.println("1- Suspend a client.");
                                     System.out.println("2- Suspend a driver.");
                                     System.out.println("3- Back.");
@@ -235,10 +238,10 @@ public class Main {
                                         break ;
                                     }
                                     break;
-                                case 3:
+                                case 4:
                                     admin.addDiscountArea();
                                     break;
-                                case 4:
+                                case 5:
                                     continue mainMenu;
 
                                 default:
