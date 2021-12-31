@@ -32,7 +32,4 @@ public class Ride {
 
     public Client getClient() { return client; }
 
-    //    public void print(Ride ride){
-//        System.out.println("Ride: (Source: " + ride.getSource() + ", Destination: " + ride.getDestination());
-//    }
 }

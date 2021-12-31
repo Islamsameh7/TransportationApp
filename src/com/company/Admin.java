@@ -19,17 +19,17 @@ public class Admin {
         return password;
     }
 
-    public void verify(Data data, Driver driver){
-        data.getDrivers().add(driver);
+    public void verify(Driver driver){
+        Main.data.getDrivers().add(driver);
         System.out.println(driver.getUserName().toUpperCase() + " is verified.");
-        data.getRequestedDrivers().remove(driver);
+        Main.data.getRequestedDrivers().remove(driver);
     }
 
-    public void listDriversRequests(Data data){
+    public void listDriversRequests(){
         int count = 0;
         System.out.println("Requested Drivers: ");
-        for (int i = 0; i < data.getRequestedDrivers().size(); i++) {
-            System.out.println(i+1 + ")" + data.getRequestedDrivers().get(i).getUserName());
+        for (int i = 0; i < Main.data.getRequestedDrivers().size(); i++) {
+            System.out.println(i+1 + ")" + Main.data.getRequestedDrivers().get(i).getUserName());
             count++;
         }
         if (count==0)
@@ -37,7 +37,7 @@ public class Admin {
         else{
             System.out.println("Choose the driver number you want to verify");
             int verifyChoice = input.nextInt();
-            verify(data, data.getRequestedDrivers().get(verifyChoice - 1));
+            verify(Main.data.getRequestedDrivers().get(verifyChoice - 1));
         }
     }
 }

@@ -4,31 +4,25 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static Data data = new Data();
+    public static Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Data data = new Data();
-        DriverAccount dLogin = new DriverAccount();
-        ClientAccount cLogin = new ClientAccount();
-        DriverControl dc = new DriverControl();
-        Driver d1 = null;
-        Client c1 = null;
+        DriverAccount driverAccount = new DriverAccount();
+        ClientAccount clientAccount = new ClientAccount();
+        DriverControl driverControl;
+        ClientControl clientControl;
         Admin admin = new Admin();
         Suspend suspend = new Suspend();
-        Ride ride = null;
         Rating rating = new Rating();
-        ClientControl clientControl = new ClientControl();
 
         String userName;
-        String email = null;
         String password;
-        String mobileNum;
-        int license;
-        int id;
         String source;
         String destination;
 
 
         int mainChoice;
-        Scanner input = new Scanner(System.in);
         mainMenu: while (true) {
             System.out.println("Hello, Choose a process: ");
             System.out.println("1- Register");
@@ -39,7 +33,7 @@ public class Main {
 
             switch (mainChoice) {
 
-                case 1: //IRegister
+                case 1: //Register
 
                     int subChoice1;
                     System.out.println("You are a: ");
@@ -51,60 +45,12 @@ public class Main {
 
                         case 1: //Driver register
 
-                            System.out.println("Please enter your username");
-                            userName = input.next();
-                            System.out.println("Do you want to add an email?");
-                            System.out.println("1- Yes");
-                            System.out.println("2- No");
-                            int emailChoiceD = input.nextInt();
-                            switch (emailChoiceD){
-                                case 1:
-                                    System.out.println("Please enter your email");
-                                    email = input.next();
-                                    break;
-
-                                case 2:
-                                    email = "No email.";
-                                    break;
-                            }
-                            System.out.println("Please enter your password");
-                            password = input.next();
-                            System.out.println("Please enter your mobile number");
-                            mobileNum = input.next();
-                            System.out.println("Please enter your license number");
-                            license = input.nextInt();
-                            System.out.println("Please enter your national id");
-                            id = input.nextInt();
-                            //Driver d1 = new Driver(userName, mobileNum, email, password, license, id);
-                            d1 = new Driver(userName, mobileNum, email, password, license, id);
-                            dLogin.register(data, d1);
+                            driverAccount.register();
                             break;
 
                         case 2: //Client register
 
-                            System.out.println("Please enter your username");
-                            userName = input.next();
-                            System.out.println("Do you want to add an email?");
-                            System.out.println("1- Yes");
-                            System.out.println("2- No");
-                            int emailChoiceC = input.nextInt();
-                            switch (emailChoiceC){
-                                case 1:
-                                    System.out.println("Please enter your email");
-                                    email = input.next();
-                                    break;
-
-                                case 2:
-                                    email = "No email.";
-                                    break;
-                            }
-                            System.out.println("Please enter your password");
-                            password = input.next();
-                            System.out.println("Please enter your mobile number");
-                            mobileNum = input.next();
-                            //Client c1 = new Client(userName, mobileNum, email, password);
-                            c1 = new Client(userName, mobileNum, email, password);
-                            cLogin.register(data, c1);
+                            clientAccount.register();
                             break;
 
                         case 3:
@@ -115,7 +61,7 @@ public class Main {
                     }
                     break;
 
-                case 2: //ILogin
+                case 2: //Login
 
                     int subChoice2;
                     System.out.println("You are a: ");
@@ -130,11 +76,11 @@ public class Main {
                             System.out.println("Please enter your password");
                             password = input.next();
                             while (true) {
-                                if (dLogin.Login(data, userName, password)!= null) {
-                                    dc = new DriverControl((Driver) dLogin.Login(data, userName, password));
+                                if (driverAccount.Login(userName, password)!= null) {
+                                    driverControl = new DriverControl(driverAccount.Login(userName, password));
                                     int dSubChoice;
-                                    System.out.println("Welcome, " + dLogin.Login(data, userName, password).getUserName().toUpperCase());
-                                    System.out.println("Your rating: " + ((Driver) dLogin.Login(data, userName, password)).getAvgRating());
+                                    System.out.println("Welcome, " + driverControl.getDriver().getUserName().toUpperCase());
+                                    System.out.println("Your rating: " + (driverControl.getDriver().getAvgRating()));
                                     System.out.println("--------------------------");
                                     System.out.println("1- Notifications.");
                                     System.out.println("2- Add an area to your favourite areas. ");
@@ -146,25 +92,25 @@ public class Main {
 
                                     switch (dSubChoice) {
                                         case 1:
-                                            dc.listNotifications();
+                                            driverControl.listNotifications();
                                             break;
 
                                         case 2:
                                             System.out.println("Enter the area name: ");
                                             String area = input.next();
-                                            dc.addArea(area);
+                                            driverControl.addArea(area);
                                             break;
 
                                         case 3:
-                                            dc.listAreas();
+                                            driverControl.listAreas();
                                             break;
 
                                         case 4:
-                                            dc.listUserRating();
+                                            driverControl.listUserRating();
                                             break;
 
                                         case 5:
-                                            dc.listRides();
+                                            driverControl.listRides();
                                             System.out.println("Do you want to accept any of them?");
                                             System.out.println("1- Yes");
                                             System.out.println("2- No");
@@ -176,7 +122,7 @@ public class Main {
                                                     System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
                                                     System.out.println("Enter your offer: ");
                                                     int offer = input.nextInt();
-                                                    dc.acceptRide(data.getRides().get(rideChoice1-1), offer);
+                                                    driverControl.acceptRide(data.getRides().get(rideChoice1-1), offer);
                                                     break;
 
                                                 case 2:
@@ -205,10 +151,10 @@ public class Main {
                             System.out.println("Please enter your password");
                             password = input.next();
                             while (true){
-                                if (cLogin.Login(data, userName, password)!= null) {
-                                    clientControl = new ClientControl((Client) cLogin.Login(data, userName, password));
+                                if (clientAccount.Login(userName, password)!= null) {
+                                    clientControl = new ClientControl(clientAccount.Login(userName, password));
                                     int cSubChoice;
-                                    System.out.println("Welcome, " + cLogin.Login(data, userName, password).getUserName().toUpperCase());
+                                    System.out.println("Welcome, " + clientAccount.Login(userName, password).getUserName().toUpperCase());
                                     System.out.println("--------------------------");
                                     System.out.println("1- Request a ride. ");
                                     System.out.println("2- Offers. ");
@@ -222,8 +168,8 @@ public class Main {
                                             source = input.next();
                                             System.out.println("Please enter your destination: ");
                                             destination = input.next();
-                                            clientControl.requestRide(source,destination);
-                                            //c1.notify(data, source, destination);
+                                            clientControl.requestRide(source, destination);
+                                            //client.notify(data, source, destination);
                                             break;
 
                                         case 2:
@@ -240,7 +186,7 @@ public class Main {
                                                 System.out.println("Enter your rate (From 1 to 5): ");
                                                 int rate = input.nextInt();
                                                 if (rate >= 1 && rate <= 5) {
-                                                    rating.rateDriver(c1, data.getDrivers().get(rateChoice - 1), rate);
+                                                    rating.rateDriver(clientControl.getClient(), data.getDrivers().get(rateChoice - 1), rate);
                                                     break;
                                                 } else {
                                                     System.out.println("Please enter number between 1 and 5. ");
@@ -285,7 +231,7 @@ public class Main {
                             adminChoice = input.nextInt();
                             switch (adminChoice) {
                                 case 1:
-                                    admin.listDriversRequests(data);
+                                    admin.listDriversRequests();
                                     break;
 
                                 case 2:
@@ -298,13 +244,13 @@ public class Main {
                                         data.printClients();
                                         System.out.println("Choose the client number you want to suspend");
                                         int suspendClient = input.nextInt();
-                                        suspend.clientSuspend(data, data.getClients().get(suspendClient - 1));
+                                        suspend.clientSuspend(data.getClients().get(suspendClient - 1));
                                     } else if (suspendChoice == 2) {
                                         System.out.println("All drivers: ");
                                         data.printDrivers();
                                         System.out.println("Choose the driver number you want to suspend");
                                         int suspendDriver = input.nextInt();
-                                        suspend.driverSuspend(data, data.getDrivers().get(suspendDriver - 1));
+                                        suspend.driverSuspend(data.getDrivers().get(suspendDriver - 1));
                                     } else if (suspendChoice == 3) {
                                         break ;
                                     }

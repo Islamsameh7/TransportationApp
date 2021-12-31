@@ -2,20 +2,18 @@ package com.company;
 
 public class Client extends User  {
 
-    private String source;
-    private String destination;
-
+    private ClientControl clientControl = new ClientControl(this);
 
     public Client(String userName, String mobileNum, String email, String password) {
         super(userName, mobileNum, email, password);
     }
 
-   /* public void requestRide(Data data, String source, String destination){
+   public void requestRide(Data data, String source, String destination){
         Ride ride = new Ride(source, destination, this);
         data.getRides().add(ride);
-        notify(data, source, destination);
+        clientControl.notify(source, destination);
     }
-
+/*
     @Override
     public void notify(Data data, String source , String destination) {
         for (Driver d: data.getDrivers()) {

@@ -2,37 +2,40 @@ package com.company;
 
 public class DriverControl implements IObserverDriver, ISubjectDriver{
 
-   private Data data = new Data();
-   private Driver d1;
-    private Client c1;
+    private Driver driver;
 
     public DriverControl() {
     }
 
-    public DriverControl(Driver d1) {
-        this.d1 = d1;
+    public DriverControl(Driver driver) {
+        this.driver = driver;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public void addArea(String areaName){
-        d1.getFavAreas().add(areaName);
+        driver.getFavAreas().add(areaName);
     }
 
     public void listAreas(){
         System.out.println("Your favourite areas: ");
-        for (int i = 0; i < d1.getFavAreas().size(); i++){
-            System.out.println(d1.getFavAreas().get(i));
+        for (int i = 0; i < driver.getFavAreas().size(); i++){
+            System.out.println(driver.getFavAreas().get(i));
         }
     }
 
     public void listRides(){
         int count = 0;
         System.out.println("Available rides: ");
-        for (int i = 0; i < data.getRides().size(); i++) {
-           // for (int j = 0; j < d1.getFavAreas().size(); j++) {
-                //if (data.getRides().get(i).getSource().equals(d1.getFavAreas().get(j))) {
-                    System.out.println(i + 1 + ") Source: " + data.getRides().get(i).getSource() + " | Destination: " + data.getRides().get(i).getDestination());
+        for (int i = 0; i < Main.data.getRides().size(); i++) {
+                    System.out.println(i + 1 + ") Source: " + Main.data.getRides().get(i).getSource() + " | Destination: " + Main.data.getRides().get(i).getDestination());
                     count++;
-
 
         }
         if(count == 0)
@@ -41,15 +44,15 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
 
     public void listUserRating() {
         System.out.println("User Ratings: ");
-        for (int i = 0; i < d1.getUserRating().size(); i++) {
-            System.out.println(d1.getUserRating().get(i));
+        for (int i = 0; i < driver.getUserRating().size(); i++) {
+            System.out.println(driver.getUserRating().get(i));
         }
     }
 
 
 
     public void listNotifications(){
-        for (String notification : d1.getDriverNotifications()) {
+        for (String notification : driver.getDriverNotifications()) {
             System.out.println(notification);
         }
     }
@@ -60,12 +63,12 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
     }
 
     public void makeOffer(int offer, Client client){
-        data.getDriverOffer().add(offer);
+        Main.data.getDriverOffer().add(offer);
     }
 
     @Override
     public void update(String src, String dst) {
-        d1.getDriverNotifications().add("There is a new ride available: Source: " + src + " | Destination: " + dst);
+        driver.getDriverNotifications().add("There is a new ride available: Source: " + src + " | Destination: " + dst);
     }
 
     @Override
