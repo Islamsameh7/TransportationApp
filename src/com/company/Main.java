@@ -18,9 +18,6 @@ public class Main {
 
         String userName;
         String password;
-        String source;
-        String destination;
-
 
         int mainChoice;
         mainMenu: while (true) {
@@ -80,7 +77,7 @@ public class Main {
                                     driverControl = new DriverControl(driverAccount.Login(userName, password));
                                     int dSubChoice;
                                     System.out.println("Welcome, " + driverControl.getDriver().getUserName().toUpperCase());
-                                    System.out.println("Your rating: " + (driverControl.getDriver().getAvgRating()));
+                                    System.out.println("Your rating: " + driverControl.getDriver().getAvgRating());
                                     System.out.println("--------------------------");
                                     System.out.println("1- Notifications.");
                                     System.out.println("2- Add an area to your favourite areas. ");
@@ -96,9 +93,7 @@ public class Main {
                                             break;
 
                                         case 2:
-                                            System.out.println("Enter the area name: ");
-                                            String area = input.next();
-                                            driverControl.addArea(area);
+                                            driverControl.addFavArea();
                                             break;
 
                                         case 3:
@@ -111,23 +106,24 @@ public class Main {
 
                                         case 5:
                                             driverControl.listRides();
-                                            System.out.println("Do you want to accept any of them?");
-                                            System.out.println("1- Yes");
-                                            System.out.println("2- No");
-                                            int notificationChoice = input.nextInt();
-                                            switch (notificationChoice){
-                                                case 1:
-                                                    System.out.println("Choose the ride number you want to accept: ");
-                                                    int rideChoice1 = input.nextInt();
-                                                    System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
-                                                    System.out.println("Enter your offer: ");
-                                                    int offer = input.nextInt();
-                                                    driverControl.acceptRide(data.getRides().get(rideChoice1-1), offer);
-                                                    break;
-
-                                                case 2:
-                                                    break;
-                                            }
+                                            driverControl.acceptRide();
+//                                            System.out.println("Do you want to accept any of them?");
+//                                            System.out.println("1- Yes");
+//                                            System.out.println("2- No");
+//                                            int notificationChoice = input.nextInt();
+//                                            switch (notificationChoice){
+//                                                case 1:
+//                                                    System.out.println("Choose the ride number you want to accept: ");
+//                                                    int rideChoice1 = input.nextInt();
+//                                                    System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
+//                                                    System.out.println("Enter your offer: ");
+//                                                    int offer = input.nextInt();
+//                                                    driverControl.acceptRide(data.getRides().get(rideChoice1-1), offer);
+//                                                    break;
+//
+//                                                case 2:
+//                                                    break;
+//                                            }
                                             break;
 
                                         case 6:
@@ -164,34 +160,17 @@ public class Main {
 
                                     switch (cSubChoice) {
                                         case 1:
-                                            System.out.println("Please enter source: ");
-                                            source = input.next();
-                                            System.out.println("Please enter your destination: ");
-                                            destination = input.next();
-                                            clientControl.requestRide(source, destination);
-                                            //client.notify(data, source, destination);
+                                            clientControl.requestRide();
                                             break;
 
                                         case 2:
-                                            System.out.println("The driver suggests: " + data.getDriverOffer().get(0));
+                                            clientControl.listAllOffers();
+                                            clientControl.acceptOffer();
                                             break;
 
                                         case 3:
-                                            System.out.println("All drivers: ");
-                                            data.printDrivers();
-                                            System.out.println("Choose the driver number you want to rate: ");
-                                            int rateChoice = input.nextInt();
-                                            System.out.println(rateChoice + ") Driver name: " + data.getDrivers().get(rateChoice-1).getUserName() + " | Average rating: " + data.getDrivers().get(rateChoice-1).getAvgRating());
-                                            while (true) {
-                                                System.out.println("Enter your rate (From 1 to 5): ");
-                                                int rate = input.nextInt();
-                                                if (rate >= 1 && rate <= 5) {
-                                                    rating.rateDriver(clientControl.getClient(), data.getDrivers().get(rateChoice - 1), rate);
-                                                    break;
-                                                } else {
-                                                    System.out.println("Please enter number between 1 and 5. ");
-                                                }
-                                            }
+                                            clientControl.rateDriver();
+                                            break;
 
                                         case 4:
                                             continue mainMenu;
@@ -227,7 +206,8 @@ public class Main {
                             System.out.println("Welcome, admin.");
                             System.out.println("1- List drivers requests.");
                             System.out.println("2- Suspend a user.");
-                            System.out.println("3- Back to main menu");
+                            System.out.println("3- Add area to the discount areas. ");
+                            System.out.println("4- Back to main menu");
                             adminChoice = input.nextInt();
                             switch (adminChoice) {
                                 case 1:
@@ -255,8 +235,10 @@ public class Main {
                                         break ;
                                     }
                                     break;
-
                                 case 3:
+                                    admin.addDiscountArea();
+                                    break;
+                                case 4:
                                     continue mainMenu;
 
                                 default:

@@ -1,12 +1,12 @@
 package com.company;
 
-import java.util.Scanner;
+import static com.company.Main.data;
+import static com.company.Main.input;
 
 public class Admin {
 
     private String username;
     private String password;
-    Scanner input = new Scanner(System.in);
 
     public Admin(){
         username = "admin";
@@ -17,6 +17,12 @@ public class Admin {
 
     public String getPassword() {
         return password;
+    }
+
+    public void addDiscountArea(){
+        System.out.println("Enter the area name: ");
+        String area = input.next();
+        data.getDiscountAreas().add(area);
     }
 
     public void verify(Driver driver){

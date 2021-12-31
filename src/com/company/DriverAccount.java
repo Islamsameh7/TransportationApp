@@ -1,15 +1,16 @@
 package com.company;
 
 import static com.company.Main.input;
+import static com.company.Main.data;
 
 public class DriverAccount implements IAccount {
 
     @Override
     public Driver Login(String username, String pass) {
-        for (int i = 0 ; i < Main.data.getDrivers().size() ; i++){
-            if (username.equals(Main.data.getDrivers().get(i).getUserName()))
-                if (pass.equals(Main.data.getDrivers().get(i).getPassword()))
-                    return Main.data.getDrivers().get(i);
+        for (int i = 0 ; i < data.getDrivers().size() ; i++){
+            if (username.equals(data.getDrivers().get(i).getUserName()))
+                if (pass.equals(data.getDrivers().get(i).getPassword()))
+                    return data.getDrivers().get(i);
         }
         return null;
     }
@@ -48,6 +49,6 @@ public class DriverAccount implements IAccount {
         license = input.nextInt();
         System.out.println("Please enter your national id");
         id = input.nextInt();
-        Main.data.getRequestedDrivers().add(new Driver(userName, mobileNum, email, password, license, id));
+        data.getRequestedDrivers().add(new Driver(userName, mobileNum, email, password, license, id));
     }
 }

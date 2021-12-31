@@ -1,5 +1,8 @@
 package com.company;
 
+import static com.company.Main.input;
+import static com.company.Main.data;
+
 public class DriverControl implements IObserverDriver, ISubjectDriver{
 
     private Driver driver;
@@ -19,8 +22,10 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
         this.driver = driver;
     }
 
-    public void addArea(String areaName){
-        driver.getFavAreas().add(areaName);
+    public void addFavArea(){
+        System.out.println("Enter the area name: ");
+        String area = input.next();
+        driver.getFavAreas().add(area);
     }
 
     public void listAreas(){
@@ -33,8 +38,8 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
     public void listRides(){
         int count = 0;
         System.out.println("Available rides: ");
-        for (int i = 0; i < Main.data.getRides().size(); i++) {
-                    System.out.println(i + 1 + ") Source: " + Main.data.getRides().get(i).getSource() + " | Destination: " + Main.data.getRides().get(i).getDestination());
+        for (int i = 0; i < data.getRides().size(); i++) {
+                    System.out.println(i + 1 + ") Source: " + data.getRides().get(i).getSource() + " | Destination: " + data.getRides().get(i).getDestination());
                     count++;
 
         }
@@ -57,13 +62,45 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
         }
     }
 
-    public void acceptRide(Ride ride, int offer){
+    public void acceptRide(){
+        System.out.println("Do you want to accept any of them?");
+        System.out.println("1- Yes");
+        System.out.println("2- No");
+        int notificationChoice = input.nextInt();
+        switch (notificationChoice){
+            case 1:
+                System.out.println("Choose the ride number you want to accept: ");
+                int rideChoice1 = input.nextInt();
+                System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
+                System.out.println("Enter your offer: ");
+                int offer = input.nextInt();
+                notify(data.getRides().get(rideChoice1-1), offer);
+                break;
 
-        notify(ride, offer);
+            case 2:
+                break;
+
+            default:
+                System.out.println("Wrong choice! ");
+        }
     }
 
-    public void makeOffer(int offer, Client client){
-        Main.data.getDriverOffer().add(offer);
+    public void makeOffer(int offer, Ride ride) {
+        if (ride.isDiscount()) {
+            ride.getClient().getDriversOffers().add(
+                    "Driver: " + this.getDriver().getUserName() +
+                    " | Original price: " + offer +
+                    " | Price after discount: " + offer*0.9 +
+                    " | Ride details: Source: " + ride.getSource() +
+                    " Destination: " + ride.getDestination());
+
+        } else{
+            ride.getClient().getDriversOffers().add(
+                    "Driver: " + this.getDriver().getUserName() +
+                    " | Price: " + offer +
+                    " | Ride details: Source: " + ride.getSource() +
+                    " Destination: " + ride.getDestination());
+        }
     }
 
     @Override
@@ -73,6 +110,6 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
 
     @Override
     public void notify(Ride ride, int offer) {
-        makeOffer(offer,ride.getClient());
+        makeOffer(offer, ride);
     }
 }

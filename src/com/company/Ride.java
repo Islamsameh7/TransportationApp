@@ -5,11 +5,21 @@ public class Ride {
     Client client;
     private String source;
     private String destination;
+    private boolean discount;
 
     public Ride(String source, String destination, Client client) {
         this.source = source;
         this.destination = destination;
         this.client = client;
+        discount = false;
+    }
+
+    public boolean isDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(boolean discount) {
+        this.discount = discount;
     }
 
     public void setSource(String source) {
