@@ -1,8 +1,5 @@
 package com.company;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static com.company.Main.input;
 import static com.company.Main.data;
 
@@ -38,7 +35,7 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
         }
     }
 
-    public void listRides(){
+    public void listAllRides(){
         int count = 0;
         System.out.println("Available rides: ");
         for (int i = 0; i < data.getRides().size(); i++) {
@@ -93,9 +90,10 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
             ride.getClient().getDriversOffers().add(
                     "Driver: " + this.getDriver().getUserName() +
                     " | Original price: " + offer +
-                    " | Price after discount: " + offer*0.9 +
+                    " | Price after discount: " + offer * 0.9 +
                     " | Ride details: Source: " + ride.getSource() +
                     " Destination: " + ride.getDestination());
+            ride.getClient().getOfferdDrivers().add(ride.getClient().getDriversOffers().size()-1, this.getDriver());
 
         } else{
             ride.getClient().getDriversOffers().add(
@@ -103,13 +101,8 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
                     " | Price: " + offer +
                     " | Ride details: Source: " + ride.getSource() +
                     " Destination: " + ride.getDestination());
+            ride.getClient().getOfferdDrivers().add(ride.getClient().getDriversOffers().size()-1, this.getDriver());
         }
-
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
-        String formattedDate = myDateObj.format(myFormatObj);
-
-        data.getEvents().add("New offer " + " | Driver: " + this.getDriver().getUserName() + " | Date & Time: " + formattedDate + " | Offer: " + offer);
     }
 
     @Override

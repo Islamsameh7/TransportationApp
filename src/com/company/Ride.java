@@ -3,6 +3,7 @@ package com.company;
 public class Ride {
 
     Client client;
+    Driver driver;
     private String source;
     private String destination;
     private boolean discount;
@@ -12,6 +13,14 @@ public class Ride {
         this.destination = destination;
         this.client = client;
         discount = false;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public boolean isDiscount() {

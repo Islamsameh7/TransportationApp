@@ -1,9 +1,5 @@
 package com.company;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import static com.company.Main.data;
 import static com.company.Main.input;
 
@@ -48,9 +44,11 @@ public class ClientControl implements ISubjectClient, IObserverClient {
     @Override
     public void notify(String source , String destination) {
         for (Driver driver: data.getDrivers()) {
-            for (String ride: driver.getFavAreas()){
-                if (ride.equals(source)){
-                    driver.driverControl.update(source, destination);
+            if (driver.isAvailableForRide()) {
+                for (String ride : driver.getFavAreas()) {
+                    if (ride.equals(source)) {
+                        driver.driverControl.update(source, destination);
+                    }
                 }
             }
         }
@@ -66,17 +64,12 @@ public class ClientControl implements ISubjectClient, IObserverClient {
                 System.out.println("Choose the offer number you want to accept: ");
                 int offerChoice = input.nextInt();
                 System.out.println(offerChoice + ") " + client.getDriversOffers().get(offerChoice - 1));
+
                 break;
 
             case 2:
                 break;
         }
-
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
-        String formattedDate = myDateObj.format(myFormatObj);
-
-        data.getEvents().add("Offer Accepted " + " | Client: " + this.getClient().getUserName() + " | Date & Time: " + formattedDate);
     }
 
     public void listAllOffers(){
@@ -97,7 +90,7 @@ public class ClientControl implements ISubjectClient, IObserverClient {
         System.out.println("Choose the driver number you want to rate: ");
         int rateChoice = input.nextInt();
         System.out.println(rateChoice + ") Driver name: " + data.getDrivers().get(rateChoice-1).getUserName() +
-                                    " | Average rating: " + data.getDrivers().get(rateChoice-1).getAvgRating());
+                " | Average rating: " + data.getDrivers().get(rateChoice-1).getAvgRating());
         while (true) {
             System.out.println("Enter your rate (From 1 to 5): ");
             int rate = input.nextInt();

@@ -10,11 +10,10 @@ public class Main {
     public static void main(String[] args) {
         DriverAccount driverAccount = new DriverAccount();
         ClientAccount clientAccount = new ClientAccount();
+        AdminController adminController = new AdminController();
         DriverControl driverControl;
         ClientControl clientControl;
-        Admin admin = new Admin();
-        Suspend suspend = new Suspend();
-        Rating rating = new Rating();
+        RideControl rideControl;
 
         String userName;
         String password;
@@ -105,25 +104,8 @@ public class Main {
                                             break;
 
                                         case 5:
-                                            driverControl.listRides();
+                                            driverControl.listAllRides();
                                             driverControl.acceptRide();
-//                                            System.out.println("Do you want to accept any of them?");
-//                                            System.out.println("1- Yes");
-//                                            System.out.println("2- No");
-//                                            int notificationChoice = input.nextInt();
-//                                            switch (notificationChoice){
-//                                                case 1:
-//                                                    System.out.println("Choose the ride number you want to accept: ");
-//                                                    int rideChoice1 = input.nextInt();
-//                                                    System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
-//                                                    System.out.println("Enter your offer: ");
-//                                                    int offer = input.nextInt();
-//                                                    driverControl.acceptRide(data.getRides().get(rideChoice1-1), offer);
-//                                                    break;
-//
-//                                                case 2:
-//                                                    break;
-//                                            }
                                             break;
 
                                         case 6:
@@ -139,7 +121,6 @@ public class Main {
                                 }
                             }
 
-
                         case 2: //Client
 
                             System.out.println("Please enter your username");
@@ -153,7 +134,7 @@ public class Main {
                                     System.out.println("Welcome, " + clientAccount.Login(userName, password).getUserName().toUpperCase());
                                     System.out.println("--------------------------");
                                     System.out.println("1- Request a ride. ");
-                                    System.out.println("2- Offers. ");
+                                    System.out.println("2- Offers for your requested ride. ");
                                     System.out.println("3- Rate a driver. ");
                                     System.out.println("4- logout.");
                                     cSubChoice = input.nextInt();
@@ -166,6 +147,7 @@ public class Main {
                                         case 2:
                                             clientControl.listAllOffers();
                                             clientControl.acceptOffer();
+//                                            rideControl.rideSimulation(driverControl.getDriver(), clientControl.getClient());
                                             break;
 
                                         case 3:
@@ -200,48 +182,27 @@ public class Main {
                     userName = input.next();
                     System.out.println("Please enter your password");
                     password = input.next();
-                    if (userName.equals(admin.getUsername()) && password.equals(admin.getPassword())) {
+                    if (userName.equals(adminController.getAdmin().getUsername()) && password.equals(adminController.getAdmin().getPassword())) {
                         while (true) {
                             int adminChoice;
                             System.out.println("Welcome, admin.");
                             System.out.println("1- List drivers requests.");
-                            System.out.println("2- List events.");
-                            System.out.println("3- Suspend a user.");
-                            System.out.println("4- Add area to the discount areas. ");
-                            System.out.println("5- Back to main menu");
+                            System.out.println("2- Suspend a user.");
+                            System.out.println("3- Add area to the discount areas. ");
+                            System.out.println("4- Back to main menu");
                             adminChoice = input.nextInt();
                             switch (adminChoice) {
                                 case 1:
-                                    admin.listDriversRequests();
+                                    adminController.listDriversRequests();
                                     break;
+
                                 case 2:
-                                    admin.listEvents();
+                                    adminController.suspendUser();
                                     break;
                                 case 3:
-                                    System.out.println("1- Suspend a client.");
-                                    System.out.println("2- Suspend a driver.");
-                                    System.out.println("3- Back.");
-                                    int suspendChoice = input.nextInt();
-                                    if (suspendChoice == 1) {
-                                        System.out.println("All clients: ");
-                                        data.printClients();
-                                        System.out.println("Choose the client number you want to suspend");
-                                        int suspendClient = input.nextInt();
-                                        suspend.clientSuspend(data.getClients().get(suspendClient - 1));
-                                    } else if (suspendChoice == 2) {
-                                        System.out.println("All drivers: ");
-                                        data.printDrivers();
-                                        System.out.println("Choose the driver number you want to suspend");
-                                        int suspendDriver = input.nextInt();
-                                        suspend.driverSuspend(data.getDrivers().get(suspendDriver - 1));
-                                    } else if (suspendChoice == 3) {
-                                        break ;
-                                    }
+                                    adminController.addDiscountArea();
                                     break;
                                 case 4:
-                                    admin.addDiscountArea();
-                                    break;
-                                case 5:
                                     continue mainMenu;
 
                                 default:
