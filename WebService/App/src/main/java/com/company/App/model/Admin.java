@@ -1,5 +1,8 @@
 package com.company.App.model;
 
+import org.springframework.stereotype.Repository;
+
+@Repository("admin")
 public class Admin {
 
     private String username;

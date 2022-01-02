@@ -1,22 +1,64 @@
 package com.company.App.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Ride {
 
     Client client;
     Driver driver;
+    private Date date;
+    private int numOfPassengers;
+    private double originalPrice;
+    private double discountPrice;
     private String source;
     private String destination;
     private boolean discount;
+    private ArrayList<Double> offers = new ArrayList<>();
 
-    public Ride(@JsonProperty("source") String source,
-                @JsonProperty("destination") String destination,
-                @JsonProperty("client") Client client) {
+    public Ride(String source, String destination, Client client, int numOfPassengers) {
         this.source = source;
         this.destination = destination;
         this.client = client;
+        this.numOfPassengers = numOfPassengers;
         discount = false;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public ArrayList<Double> getOffers() {
+        return offers;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(double originalPrice) {
+        this.discountPrice = originalPrice;
+        this.originalPrice = originalPrice;
+    }
+
+    public int getNumOfPassengers() {
+        return numOfPassengers;
+    }
+
+    public void setNumOfPassengers(int numOfPassengers) {
+        this.numOfPassengers = numOfPassengers;
     }
 
     public Driver getDriver() {

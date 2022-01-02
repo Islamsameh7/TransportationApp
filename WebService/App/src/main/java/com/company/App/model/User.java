@@ -1,6 +1,6 @@
 package com.company.App.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 
 public abstract class User{
     private String userName;
@@ -8,15 +8,18 @@ public abstract class User{
     private String email;
     private String password;
     private int userID;
+    private Date birthdate;
 
-    public User(@JsonProperty("username") String userName,
-                @JsonProperty("mobile") String mobileNum,
-                @JsonProperty("email") String email,
-                @JsonProperty("password") String password) {
+    public User(String userName, String mobileNum, String email, String password, Date birthdate) {
         this.userName = userName;
         this.mobileNum = mobileNum;
         this.email = email;
         this.password = password;
+        this.birthdate = birthdate;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
     }
 
     public String getUserName() {

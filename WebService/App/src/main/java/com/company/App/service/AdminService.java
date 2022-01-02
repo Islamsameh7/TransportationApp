@@ -1,51 +1,48 @@
-package com.company.App.controller;
+package com.company.App.service;
 
-import com.company.App.model.Admin;
-import com.company.App.model.Driver;
+
 import com.company.App.Suspend;
 import com.company.App.data.Data;
+import com.company.App.model.Admin;
+import com.company.App.model.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import static com.company.App.data.Data.input;
 
-@RequestMapping("/controller/admin")
-@RestController
-public class AdminControl {
+@Service
+public class AdminService {
 
+    Data data;
     Admin admin;
     Suspend suspend;
-    Data data;
 
-    @Autowired
-    public AdminControl(Data data) {
-        this.data = data;
+    public AdminService() {
     }
 
-    public AdminControl(Admin admin) {
+    @Autowired
+    public AdminService(@Qualifier("admin") Admin admin, @Qualifier("dataObj") Data data) {
         this.admin = admin;
+        this.data = data;
     }
 
     public Admin getAdmin() {
         return admin;
     }
 
-    @PostMapping
     public void addDiscountArea(){
         System.out.println("Enter the area name: ");
         String area = input.next();
         data.getDiscountAreas().add(area);
     }
 
-    @PutMapping
     public void verify(Driver driver){
         data.getDrivers().add(driver);
         System.out.println(driver.getUserName().toUpperCase() + " is verified.");
-        driver.setVerified(true);
         data.getRequestedDrivers().remove(driver);
     }
 
-    @GetMapping
     public void listDriversRequests(){
         int count = 0;
         System.out.println("Requested Drivers: ");
@@ -62,7 +59,6 @@ public class AdminControl {
         }
     }
 
-    @DeleteMapping
     public void suspendUser(){
         System.out.println("1- Suspend a client.");
         System.out.println("2- Suspend a driver.");
@@ -88,5 +84,15 @@ public class AdminControl {
             default:
                 System.out.println("Wrong choice! ");
         }
+    }
+    public void listEvents(){
+        int count = 0;
+        System.out.println("Events: ");
+        for (int i = 0; i < data.getEvents().size(); i++) {
+            System.out.println(i+1 + ")" + data.getEvents().get(i));
+            count++;
+        }
+        if (count==0)
+            System.out.println("No available events. ");
     }
 }

@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws ParseException, InterruptedException {
         DriverAccount driverAccount = new DriverAccount();
         ClientAccount clientAccount = new ClientAccount();
-        AdminController adminController = new AdminController(new Admin());
+        AdminControl adminControl = new AdminControl(new Admin());
         DriverControl driverControl;
         ClientControl clientControl;
 
@@ -189,7 +189,7 @@ public class Main {
                         userName = input.next();
                         System.out.println("Please enter your password");
                         password = input.next();
-                        if (userName.equals(adminController.getAdmin().getUsername()) && password.equals(adminController.getAdmin().getPassword())) {
+                        if (userName.equals(adminControl.getAdmin().getUsername()) && password.equals(adminControl.getAdmin().getPassword())) {
                             while (true) {
                                 int adminChoice;
                                 System.out.println("Welcome, admin.");
@@ -200,14 +200,14 @@ public class Main {
                                 adminChoice = input.nextInt();
                                 switch (adminChoice) {
                                     case 1:
-                                        adminController.listDriversRequests();
+                                        adminControl.listDriversRequests();
                                         break;
 
                                     case 2:
-                                        adminController.suspendUser();
+                                        adminControl.suspendUser();
                                         break;
                                     case 3:
-                                        adminController.addDiscountArea();
+                                        adminControl.addDiscountArea();
                                         break;
                                     case 4:
                                         continue mainMenu;

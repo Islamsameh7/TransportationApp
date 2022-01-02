@@ -1,45 +1,65 @@
 package com.company.App.model;
-import com.company.App.controller.DriverControl;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.company.App.service.DriverService;
+import com.company.App.data.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Driver extends User {
 
-    private int license;
-    private int nationalID;
+    private Data data;
+    private int license, nationalID, numOfSeats;
+    private String location;
+    private double avgRating, balance;
+    private boolean availableForRide;
     private ArrayList<String> userRating = new ArrayList<>();
     private ArrayList<Integer> ratingList = new ArrayList<>();
     private ArrayList<String> favAreas = new ArrayList<>();
     private ArrayList<String> driverNotifications = new ArrayList<>();
-    private DriverControl driverControl = new DriverControl(this);
-    private double avgRating;
-    private boolean availableForRide;
-    private boolean verified;
+    DriverService driverService = new DriverService(this, data);
 
-    public Driver(@JsonProperty("username") String userName,
-                  @JsonProperty("mobile") String mobileNum,
-                  @JsonProperty("email") String email,
-                  @JsonProperty("password") String password,
-                  @JsonProperty("license") int license,
-                  @JsonProperty("nationalID") int nationalID) {
-        super(userName, mobileNum, email, password);
+    @Autowired
+    public Driver(String userName, String mobileNum, String email, String password, Date birthdate,
+                  int license, int nationalID, String location, int numOfSeats, @Qualifier("dataObj") Data data) {
+        super(userName, mobileNum, email, password, birthdate);
         this.license = license;
         this.nationalID = nationalID;
         this.availableForRide = true;
-        this.verified = false;
+        this.location = location;
+        this.numOfSeats = numOfSeats;
+        this.balance = 0;
+        this.data = data;
     }
 
-    public boolean isVerified() {
-        return verified;
+    public DriverService getDriverControl() {
+        return driverService;
     }
 
-    public void setVerified(boolean verified) {
-        this.verified = verified;
+    public double getBalance() {
+        return balance;
     }
 
-    public DriverControl getDriverControl() {
-        return driverControl;
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public int getNumOfSeats() {
+        return numOfSeats;
+    }
+
+    public void setNumOfSeats(int numOfSeats) {
+        this.numOfSeats = numOfSeats;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public boolean isAvailableForRide() {

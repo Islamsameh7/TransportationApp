@@ -4,12 +4,12 @@ import com.company.App.model.Client;
 import com.company.App.model.Driver;
 import com.company.App.model.Ride;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
-@Repository("data")
+@Repository ("dataObj")
 public class Data {
 
     private ArrayList<Client> clients = new ArrayList<>();
@@ -18,10 +18,15 @@ public class Data {
     private ArrayList<Driver> requestedDrivers = new ArrayList<>();
     private ArrayList<String> events = new ArrayList<>();
     private ArrayList<String> discountAreas = new ArrayList<>();
+    private ArrayList<Date> holidays = new ArrayList<>();
+
     public static Scanner input = new Scanner(System.in);
 
+    private ArrayList<Integer> driverOffer = new ArrayList<>();
 
-    public ArrayList<Integer> driverOffer = new ArrayList<>();
+    public ArrayList<Date> getHolidays() {
+        return holidays;
+    }
 
     public ArrayList<Client> getClients() {
         return clients;
