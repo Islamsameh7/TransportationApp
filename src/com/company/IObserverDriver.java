@@ -3,5 +3,5 @@ package com.company;
 public interface IObserverDriver
 {
 
-    void update(String src, String dst);
+    void update(String src, String dst, Client client);
 }

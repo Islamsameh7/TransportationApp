@@ -1,7 +1,11 @@
 package com.company;
 
-import static com.company.Main.input;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.company.Main.data;
+import static com.company.Main.input;
 
 public class DriverAccount implements IAccount {
 
@@ -16,14 +20,11 @@ public class DriverAccount implements IAccount {
     }
 
     @Override
-    public void register() {
+    public void register() throws ParseException {
 
-        String userName;
-        String email = null;
-        String password;
-        String mobileNum;
-        int license;
-        int id;
+        String userName, email = null, password, mobileNum, location, date;
+        int license, id, numOfSeats;
+        Date birthdate;
 
         System.out.println("Please enter your username");
         userName = input.next();
@@ -45,10 +46,17 @@ public class DriverAccount implements IAccount {
         password = input.next();
         System.out.println("Please enter your mobile number");
         mobileNum = input.next();
+        System.out.println("Please enter your birth date (dd/MM/yyyy)");
+        date = input.next();
+        birthdate = new SimpleDateFormat(date).parse(date);
         System.out.println("Please enter your license number");
         license = input.nextInt();
         System.out.println("Please enter your national id");
         id = input.nextInt();
-        data.getRequestedDrivers().add(new Driver(userName, mobileNum, email, password, license, id));
+        System.out.println("Please specify your location area");
+        location = input.next();
+        System.out.println("Please enter how many seats do you have?");
+        numOfSeats = input.nextInt();
+        data.getRequestedDrivers().add(new Driver(userName, mobileNum, email, password, birthdate, license, id, location, numOfSeats));
     }
 }

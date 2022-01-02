@@ -1,24 +1,52 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Driver extends User {
 
-    private int license;
-    private int nationalID;
+    private int license, nationalID, numOfSeats;
+    private String location;
+    private double avgRating, balance;
+    private boolean availableForRide;
     private ArrayList<String> userRating = new ArrayList<>();
     private ArrayList<Integer> ratingList = new ArrayList<>();
     private ArrayList<String> favAreas = new ArrayList<>();
     private ArrayList<String> driverNotifications = new ArrayList<>();
-    private double avgRating;
     DriverControl driverControl= new DriverControl(this);
-    private boolean availableForRide;
 
-    public Driver(String userName, String mobileNum, String email, String password, int license, int nationalID) {
-        super(userName, mobileNum, email, password);
+    public Driver(String userName, String mobileNum, String email, String password, Date birthdate, int license, int nationalID, String location, int numOfSeats) {
+        super(userName, mobileNum, email, password, birthdate);
         this.license = license;
         this.nationalID = nationalID;
         this.availableForRide = true;
+        this.location = location;
+        this.numOfSeats = numOfSeats;
+        this.balance = 0;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public int getNumOfSeats() {
+        return numOfSeats;
+    }
+
+    public void setNumOfSeats(int numOfSeats) {
+        this.numOfSeats = numOfSeats;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public boolean isAvailableForRide() {

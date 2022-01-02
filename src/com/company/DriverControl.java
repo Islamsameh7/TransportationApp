@@ -1,14 +1,12 @@
 package com.company;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static com.company.Main.input;
 import static com.company.Main.data;
+import static com.company.Main.input;
 
 public class DriverControl implements IObserverDriver, ISubjectDriver{
 
     private Driver driver;
+    private RideControl rideControl;
 
     public DriverControl() {
     }
@@ -76,7 +74,8 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
                 int rideChoice1 = input.nextInt();
                 System.out.println(rideChoice1 + ") Source: " + data.getRides().get(rideChoice1-1).getSource() + " | Destination: " + data.getRides().get(rideChoice1-1).getDestination());
                 System.out.println("Enter your offer: ");
-                int offer = input.nextInt();
+                double offer = input.nextInt();
+                data.getRides().get(rideChoice1-1).setOriginalPrice(offer);
                 notify(data.getRides().get(rideChoice1-1), offer);
                 break;
 
@@ -88,36 +87,30 @@ public class DriverControl implements IObserverDriver, ISubjectDriver{
         }
     }
 
-    public void makeOffer(int offer, Ride ride) {
-        if (ride.isDiscount()) {
-            ride.getClient().getDriversOffers().add(
-                    "Driver: " + this.getDriver().getUserName() +
-                            " | Original price: " + offer +
-                            " | Price after discount: " + offer*0.9 +
-                            " | Ride details: Source: " + ride.getSource() +
-                            " Destination: " + ride.getDestination());
-        } else{
-            ride.getClient().getDriversOffers().add(
-                    "Driver: " + this.getDriver().getUserName() +
-                            " | Price: " + offer +
-                            " | Ride details: Source: " + ride.getSource() +
-                            " Destination: " + ride.getDestination());
-        }
-
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
-        String formattedDate = myDateObj.format(myFormatObj);
-
-        data.getEvents().add("New offer " + " | Driver: " + this.getDriver().getUserName() + " | Date & Time: " + formattedDate + " | Offer: " + offer);
+    public void makeOffer(double offer, Ride ride) {
+        rideControl = new RideControl(ride);
+        rideControl.checkDiscount();
+        ride.getOffers().add(offer);
+        ride.getClient().getClientControl().update(offer, ride, this.getDriver());
     }
 
     @Override
-    public void update(String src, String dst) {
-        driver.getDriverNotifications().add("There is a new ride available: Source: " + src + " | Destination: " + dst);
+    public void update(String src, String dst, Client client) {
+        driver.getDriverNotifications().add("There is a new ride available: Source: " + src + " | Destination: " + dst + " | Client: " + client.getUserName());
     }
 
     @Override
-    public void notify(Ride ride, int offer) {
+    public void notify(Ride ride, double offer) {
         makeOffer(offer, ride);
+    }
+
+    public void changeLocation(){
+        System.out.println("Enter your location");
+        driver.setLocation(input.next());
+    }
+
+    public void changeNumOfSeats(){
+        System.out.println("Enter number of seats.");
+        driver.setNumOfSeats(input.nextInt());
     }
 }

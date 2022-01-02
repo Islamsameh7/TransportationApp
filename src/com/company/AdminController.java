@@ -6,7 +6,6 @@ import static com.company.Main.input;
 public class AdminController {
 
     Admin admin;
-    Suspend suspend;
 
     public AdminController() {
     }
@@ -58,14 +57,14 @@ public class AdminController {
                 data.printClients();
                 System.out.println("Choose the client number you want to suspend");
                 int suspendClient = input.nextInt();
-                suspend.clientSuspend(data.getClients().get(suspendClient - 1));
+                Suspend.clientSuspend(data.getClients().get(suspendClient - 1));
                 break;
             case 2:
                 System.out.println("All drivers: ");
                 data.printDrivers();
                 System.out.println("Choose the driver number you want to suspend");
                 int suspendDriver = input.nextInt();
-                suspend.driverSuspend(data.getDrivers().get(suspendDriver - 1));
+                Suspend.driverSuspend(data.getDrivers().get(suspendDriver - 1));
                 break;
             case 3:
                 break;

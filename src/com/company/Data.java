@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Data {
 
@@ -10,9 +11,14 @@ public class Data {
     private ArrayList<Driver> requestedDrivers = new ArrayList<>();
     private ArrayList<String> events = new ArrayList<>();
     private ArrayList<String> discountAreas = new ArrayList<>();
+    private ArrayList<Date> holidays = new ArrayList<>();
 
 
     private ArrayList<Integer> driverOffer = new ArrayList<>();
+
+    public ArrayList<Date> getHolidays() {
+        return holidays;
+    }
 
     public ArrayList<Client> getClients() {
         return clients;

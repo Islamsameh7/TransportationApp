@@ -1,17 +1,25 @@
 package com.company;
 
+import java.util.Date;
+
 public abstract class User{
     private String userName;
     private String mobileNum;
     private String email;
     private String password;
     private int userID;
+    private Date birthdate;
 
-    public User(String userName, String mobileNum, String email, String password) {
+    public User(String userName, String mobileNum, String email, String password, Date birthdate) {
         this.userName = userName;
         this.mobileNum = mobileNum;
         this.email = email;
         this.password = password;
+        this.birthdate = birthdate;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
     }
 
     public String getUserName() {
