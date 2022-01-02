@@ -1,5 +1,8 @@
 package com.company;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static com.company.Main.data;
 import static com.company.Main.input;
 
@@ -64,12 +67,16 @@ public class ClientControl implements ISubjectClient, IObserverClient {
                 System.out.println("Choose the offer number you want to accept: ");
                 int offerChoice = input.nextInt();
                 System.out.println(offerChoice + ") " + client.getDriversOffers().get(offerChoice - 1));
-
                 break;
-
             case 2:
                 break;
         }
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm:ss");
+        String formattedDate = myDateObj.format(myFormatObj);
+
+        data.getEvents().add("Offer Accepted " + " | Client: " + this.getClient().getUserName() + " | Date & Time: " + formattedDate);
     }
 
     public void listAllOffers(){

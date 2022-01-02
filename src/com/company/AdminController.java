@@ -73,4 +73,14 @@ public class AdminController {
                 System.out.println("Wrong choice! ");
         }
     }
+    public void listEvents(){
+        int count = 0;
+        System.out.println("Events: ");
+        for (int i = 0; i < data.getEvents().size(); i++) {
+            System.out.println(i+1 + ")" + data.getEvents().get(i));
+            count++;
+        }
+        if (count==0)
+            System.out.println("No available events. ");
+    }
 }
