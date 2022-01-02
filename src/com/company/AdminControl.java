@@ -3,14 +3,14 @@ package com.company;
 import static com.company.Main.data;
 import static com.company.Main.input;
 
-public class AdminController {
+public class AdminControl {
 
     Admin admin;
 
-    public AdminController() {
+    public AdminControl() {
     }
 
-    public AdminController(Admin admin) {
+    public AdminControl(Admin admin) {
         this.admin = admin;
     }
 
